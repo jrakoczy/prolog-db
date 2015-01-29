@@ -1,6 +1,8 @@
 package pl.edu.agh.jrakoczy.rules.presenter;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.prefs.InvalidPreferencesFormatException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +42,16 @@ public class InsertServlet extends HttpServlet {
 		}
 		
 		RuleDAO ruleDAO = new RuleDAO(getServletContext());
-		ruleDAO.insertRecord(ruleDTO);
+		try {
+			ruleDAO.insertRecord(ruleDTO);
+		} catch (ClassNotFoundException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+		} catch (InvalidPreferencesFormatException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		response.setStatus(HttpServletResponse.SC_OK);
 	}
 
 }

@@ -3,22 +3,19 @@
 	version="3.0">
 	<display-name>Archetype Created Web Application</display-name>
 	<servlet>
-		<servlet-name>TestServlet</servlet-name>
-		<servlet-class>pl.edu.agh.jrakoczy.rules.TestServlet</servlet-class>
+		<servlet-name>SelectServlet</servlet-name>
+		<servlet-class>pl.edu.agh.jrakoczy.rules.presenter.SelectServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<description>
-		</description>
-		<display-name>InsertServlet</display-name>
 		<servlet-name>InsertServlet</servlet-name>
 		<servlet-class>pl.edu.agh.jrakoczy.rules.presenter.InsertServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TestServlet</servlet-name>
-		<url-pattern>/test</url-pattern>
+		<servlet-name>SelectServlet</servlet-name>
+		<url-pattern>/select</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>InsertServlet</servlet-name>
-		<url-pattern>/InsertServlet</url-pattern>
+		<url-pattern>/insert</url-pattern>
 	</servlet-mapping>
 </web-app>

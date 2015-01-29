@@ -58,7 +58,7 @@ public class RuleDAO extends AbstractDAO {
 
 		for (String funcPredicate : ruleDTO.getFuncPredicates()) {
 			Integer funcId = insertFunc(funcPredicate);
-			//insertFuncRule(ruleId, funcId);
+			insertFuncRule(ruleId, funcId);
 		}
 
 		for (String condPredicate : ruleDTO.getCondPredicates()) {

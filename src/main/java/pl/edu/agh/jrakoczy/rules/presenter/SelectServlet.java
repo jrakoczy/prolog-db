@@ -1,9 +1,6 @@
 package pl.edu.agh.jrakoczy.rules.presenter;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.prefs.InvalidPreferencesFormatException;
 
@@ -11,9 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.http.HTTPException;
 
-import pl.edu.agh.jrakoczy.rules.model.DatabaseAccess;
 import pl.edu.agh.jrakoczy.rules.model.dao.RuleDAO;
 import pl.edu.agh.jrakoczy.rules.model.dto.RuleDTO;
 import pl.edu.agh.jrakoczy.rules.model.parser.RuleParser;
@@ -32,7 +27,6 @@ public class SelectServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -55,7 +49,13 @@ public class SelectServlet extends HttpServlet {
 		} catch (InvalidPreferencesFormatException e) {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		response.getWriter().println(RuleParser.composeRule(ruleDTO));
+
+		if (ruleDTO.getName().isEmpty())
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		else {
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println(RuleParser.composeRule(ruleDTO));
+		}
 	}
 
 }

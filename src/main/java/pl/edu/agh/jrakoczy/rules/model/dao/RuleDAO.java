@@ -323,8 +323,12 @@ public class RuleDAO extends AbstractDAO {
 
 		while (rs.next()) {
 			name = rs.getString(NAME_COL);
-			funcPredicates.add(rs.getString(FUNC_CODE_COL));
-			condPredicates.add(rs.getString(COND_CODE_COL));
+
+			if (rs.getString(FUNC_CODE_COL) != null)
+				funcPredicates.add(rs.getString(FUNC_CODE_COL));
+
+			if (rs.getString(COND_CODE_COL) != null)
+				condPredicates.add(rs.getString(COND_CODE_COL));
 		}
 
 		RuleDTO ruleDTO = new RuleDTO();

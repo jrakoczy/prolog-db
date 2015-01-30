@@ -19,6 +19,7 @@ public class RuleParser {
 	private static final String OPEN_BLOCK = "(";
 	private static final String CLOSE_BLOCK = ")";
 	private static final String CLOSE_RULE = ".";
+	private static final String NULL_STR = "null";
 	private static final String EMPTY_REGEX = "^\\s*$";
 	private static final String DISPENSABLES_REGEX = ",*\\s*";
 	private static final String PREDICATE_REGEX = DISPENSABLES_REGEX
@@ -222,7 +223,7 @@ public class RuleParser {
 
 		while (matcher.find()) {
 			String predicate = matcher.group(groupNum).trim();
-			if (predicate.matches(EMPTY_REGEX))
+			if (predicate.matches(EMPTY_REGEX) || predicate.contains(NULL_STR))
 				continue;
 			parsed.add(predicate);
 		}

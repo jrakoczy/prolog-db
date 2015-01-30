@@ -20,28 +20,32 @@ import pl.edu.agh.jrakoczy.rules.model.parser.RuleParser;
 public class InsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String CODE_PARAM = "code";
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InsertServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public InsertServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String code = request.getParameter(CODE_PARAM);
+
 		RuleDTO ruleDTO = null;
 		try {
 			ruleDTO = RuleParser.parseRule(code);
 		} catch (ParsingException e) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
-		
+
 		RuleDAO ruleDAO = new RuleDAO(getServletContext());
+
 		try {
 			ruleDAO.insertRecord(ruleDTO);
 		} catch (ClassNotFoundException e) {
@@ -52,6 +56,8 @@ public class InsertServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 		response.setStatus(HttpServletResponse.SC_OK);
+		response.getWriter().println("Successful insertion.");
+
 	}
 
 }

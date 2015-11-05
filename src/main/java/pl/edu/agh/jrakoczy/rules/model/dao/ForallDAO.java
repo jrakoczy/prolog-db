@@ -20,17 +20,16 @@ public class ForallDAO extends AbstractDAO {
 	private static final String SELECT_FORALL = "SELECT fp.code AS "
 			+ FUNC_CODE_COL + ", cp.code AS " + COND_CODE_COL
 			+ " FROM rules AS r"
-			+ " LEFT JOIN loop_rules_xref AS lrx ON r.id = lrx.rule_id"
-			+ " LEFT JOIN loop_predicates AS lp ON lrx.loop_id = lp.id"
-			+ " LEFT JOIN func_loop_xref AS flx ON lp.id = flx.loop_id"
-			+ " LEFT JOIN func_predicates AS fp ON flx.func_id = fp.id"
-			+ " LEFT JOIN cond_loop_xref AS clx ON lp.id = clx.loop_id"
-			+ " LEFT JOIN cond_predicates AS cp ON clx.cond_id = cp.id"
+			+ " INNER JOIN loop_rules_xref AS lrx ON r.id = lrx.rule_id"
+			+ " INNER JOIN loop_predicates AS lp ON lrx.loop_id = lp.id"
+			+ " INNER JOIN func_loop_xref AS flx ON lp.id = flx.loop_id"
+			+ " INNER JOIN func_predicates AS fp ON flx.func_id = fp.id"
+			+ " INNER JOIN cond_loop_xref AS clx ON lp.id = clx.loop_id"
+			+ " INNER JOIN cond_predicates AS cp ON clx.cond_id = cp.id"
 			+ " WHERE r.name = ?;";
 
 	public ForallDAO(ServletContext context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 
 	public List<ForallDTO> selectForall(String ruleName)
